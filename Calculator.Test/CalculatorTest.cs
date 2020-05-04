@@ -417,6 +417,26 @@ namespace Calculator.Test
             Assert.AreEqual(35, result.Second);
         }
 
+        [TestMethod]
+        public void CalculateDueDate_Starting_On_Thu_15_30_With_4_day_2_Hours_Turnaraound_ShouldResultInNextTueMorning()
+        {
+            // Arrange
+            var date = new DateTime(2020, 5, 14, 15, 37, 0);
+            var turnaroundTime = 4 * 8 + 2;
+
+            // Act
+            var result = Calculator.CalculateDueDate(date, turnaroundTime);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(date.Year, result.Year);
+            Assert.AreEqual(date.Month, result.Month);
+            Assert.AreEqual(21, result.Day);
+            Assert.AreEqual(9, result.Hour);
+            Assert.AreEqual(37, result.Minute);
+            Assert.AreEqual(00, result.Second);
+        }
+
         #endregion Validation_Testing_Miscellaneous
     }
 }

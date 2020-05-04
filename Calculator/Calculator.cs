@@ -18,7 +18,7 @@ namespace Calculator
         {
             if (!IsValidWorkingTime(submitTime))
             {
-                throw new ArgumentException("Submit time is not a valid working time.");
+                throw new ArgumentException("Submit time is not a valid working time. Should be between Mon-Fri, 9AM-5PM");
             }
             if (turnAroundTime <= 0)
             {
@@ -53,25 +53,25 @@ namespace Calculator
                         time.TimeOfDay.Minutes == 0));
         }
 
-        private static DateTime AddWorkWeeks(this DateTime dateTime, int workWeeks)
+        private static DateTime AddWorkWeeks(this DateTime time, int workWeeks)
         {
-            return dateTime.AddDays(workWeeks * 7);
+            return time.AddDays(workWeeks * 7);
         }
 
-        private static DateTime AddWorkDays(this DateTime dateTime, int workDays)
+        private static DateTime AddWorkDays(this DateTime time, int workDays)
         {
-            if ((int)dateTime.DayOfWeek + workDays > 5)
+            if ((int)time.DayOfWeek + workDays > 5)
             {
                 workDays += 2;
             }
 
-            return dateTime.AddDays(workDays);
+            return time.AddDays(workDays);
         }
 
-        private static DateTime AddWorkHours(this DateTime dateTime, int workHours)
+        private static DateTime AddWorkHours(this DateTime time, int workHours)
         {
-            var result = dateTime;
-            if (dateTime.TimeOfDay.Hours + workHours >= 17)
+            var result = time;
+            if (time.TimeOfDay.Hours + workHours >= 17)
             {
                 result = result.AddWorkDays(1).AddHours(-8);
             }
